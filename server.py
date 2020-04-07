@@ -35,7 +35,7 @@ def clientthread(conn, addr):
 				if message:
 					for i in range(len(message)):
 						temp = ord(message[i])
-						if(temp < 97):
+						if(temp < 32):
 							temp -= i
 							temp = 127 + temp
 						else:

@@ -34,11 +34,10 @@ while True:
 			for i in range(len(message)):
 				temp = ord(message[i])+i
 				if(temp > 127):
-					temp -= 128
+					temp -= 127
 				mes += chr(temp)
 			server.send(converter(mes))
 			sys.stdout.write("<" + username + ">")
-			# sys.stdout.write(message)
 			sys.stdout.flush()
 			mes = ""
 server.close()
