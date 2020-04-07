@@ -30,11 +30,17 @@ def clientthread(conn, addr):
 	while True:
 			try:
 				mes = ''
+				temp = 0
 				message = conn.recv(2048)
 				if message:
-					print "<" + addr[0] + "," + clientname + "> " + message
 					for i in range(len(message)):
-						mes += chr(ord(message[i])-1)
+						temp = ord(message[i])
+						if(temp < 97):
+							temp -= i
+							temp = 127 + temp
+						else:
+							temp -= i
+						mes += chr(temp)
 					message = converter(mes)
 					print "<" + addr[0] + "," + clientname + "> " + message
 					message_to_send = "<" + addr[0] + "," + clientname + "> " + message
@@ -59,6 +65,7 @@ def remove(connection):
 		list_of_clients.remove(connection)
 
 while True:
+	cmes = ""
 	conn, addr = server.accept()
 	list_of_clients.append(conn)
 	print addr[0] + " connected"
@@ -66,11 +73,3 @@ while True:
 
 conn.close()
 server.close()
-
-
-	# for socks in read_sockets:
-	# 		message = sys.stdin.readline()
-	# 		server.send(message)
-	# 		sys.stdout.write("<You>")
-	# 		sys.stdout.write(message)
-	# 		sys.stdout.flush()

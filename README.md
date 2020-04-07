@@ -1,3 +1,3 @@
-# how to use:
-# pyhton server.py (ip) (port) (server name)
-# python client.py (ip) (port) (client name)
+how to use:
+python server.py (ip) (port) (server name)
+python client.py (ip) (port) (client name)  

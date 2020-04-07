@@ -13,6 +13,7 @@ username = str(sys.argv[3])
 server.connect((IP_address, Port))
 server.send(username)
 mes = ''
+temp = 0
 
 def converter(s):
 	new = ""
@@ -31,10 +32,13 @@ while True:
 		else:
 			message = sys.stdin.readline()
 			for i in range(len(message)):
-				mes += chr(ord(message[i])+1)
+				temp = ord(message[i])+i
+				if(temp > 127):
+					temp -= 128
+				mes += chr(temp)
 			server.send(converter(mes))
 			sys.stdout.write("<" + username + ">")
-			sys.stdout.write(mes)
+			# sys.stdout.write(message)
 			sys.stdout.flush()
 			mes = ""
 server.close()
