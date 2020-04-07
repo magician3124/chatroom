@@ -12,6 +12,13 @@ Port = int(sys.argv[2])
 username = str(sys.argv[3])
 server.connect((IP_address, Port))
 server.send(username)
+mes = ''
+
+def converter(s):
+	new = ""
+	for x in s:
+		new += x
+	return new
 
 while True:
 	sockets_list = [sys.stdin, server]
@@ -23,8 +30,11 @@ while True:
 			print message
 		else:
 			message = sys.stdin.readline()
-			server.send(message)
+			for i in range(len(message)):
+				mes += chr(ord(message[i])+1)
+			server.send(converter(mes))
 			sys.stdout.write("<" + username + ">")
-			sys.stdout.write(message)
+			sys.stdout.write(mes)
 			sys.stdout.flush()
+			mes = ""
 server.close()

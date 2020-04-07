@@ -18,13 +18,24 @@ server.bind((IP_address, Port))
 server.listen(100)
 list_of_clients = []
 
+def converter(s):
+	new = ""
+	for x in s:
+		new += x
+	return new
+
 def clientthread(conn, addr):
 	conn.send("Welcome to this chatroom!")
 	clientname = conn.recv(2048)
 	while True:
 			try:
+				mes = ''
 				message = conn.recv(2048)
 				if message:
+					print "<" + addr[0] + "," + clientname + "> " + message
+					for i in range(len(message)):
+						mes += chr(ord(message[i])-1)
+					message = converter(mes)
 					print "<" + addr[0] + "," + clientname + "> " + message
 					message_to_send = "<" + addr[0] + "," + clientname + "> " + message
 					broadcast(message_to_send, conn)
